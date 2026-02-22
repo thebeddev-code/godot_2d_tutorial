@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://csb53fkip8pfb"]
+
+[ext_resource type="Script" uid="uid://budigo35omch0" path="res://src/mob.gd" id="1_ebxvl"]
+[ext_resource type="Texture2D" uid="uid://3cdqkefnqsjj" path="res://assets/enemyFlyingAlt_1.png" id="2_ebxvl"]
+[ext_resource type="Texture2D" uid="uid://wobrdfplq257" path="res://assets/enemyFlyingAlt_2.png" id="3_wpivu"]
+[ext_resource type="Texture2D" uid="uid://dyxa2mwomfrfg" path="res://assets/enemySwimming_1.png" id="4_nao87"]
+[ext_resource type="Texture2D" uid="uid://62k60dvjfxvc" path="res://assets/enemySwimming_2.png" id="5_i71wu"]
+[ext_resource type="Texture2D" uid="uid://sipqcnuinqim" path="res://assets/enemyWalking_1.png" id="6_m0xve"]
+[ext_resource type="Texture2D" uid="uid://cud8hd7rswbh3" path="res://assets/enemyWalking_2.png" id="7_m0elm"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nokgg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ebxvl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_wpivu")
+}],
+"loop": true,
+"name": &"fly",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_nao87")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_i71wu")
+}],
+"loop": true,
+"name": &"swim",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_m0xve")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_m0elm")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ubaqv"]
+size = Vector2(65, 64)
+
+[node name="Mob" type="RigidBody2D" unique_id=1119976789 groups=["mobs"]]
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("1_ebxvl")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=611212223]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_nokgg")
+animation = &"walk"
+frame_progress = 0.8649171
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=832103119]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_ubaqv")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1329979766]
+rect = Rect2(-33, -32, 65, 64)
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
